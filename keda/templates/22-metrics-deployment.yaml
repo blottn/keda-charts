@@ -3,6 +3,8 @@ kind: Deployment
 metadata:
   name: {{ .Values.operator.name }}-metrics-apiserver
   namespace: {{ .Release.Namespace }}
+  annotations:
+    {{- toYaml .Values.additionalAnnotations | nindent 4 }}
   labels:
     app: {{ .Values.operator.name }}-metrics-apiserver
     app.kubernetes.io/name: {{ .Values.operator.name }}-metrics-apiserver
@@ -18,6 +20,8 @@ spec:
       app: {{ .Values.operator.name }}-metrics-apiserver
   template:
     metadata:
+      annotations:
+        {{- toYaml .Values.additionalAnnotations | nindent 8 }}
       labels:
         app: {{ .Values.operator.name }}-metrics-apiserver
         app.kubernetes.io/name: {{ .Values.operator.name }}-metrics-apiserver
